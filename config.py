@@ -8,3 +8,4 @@ class Config:
     IPMI_IP = os.getenv("IPMI_IP")
     IPMI_USER = os.getenv("IPMI_USER")
     IPMI_PASS = os.getenv("IPMI_PASS")
+    SERVER_IP = os.getenv("SERVER_IP")
