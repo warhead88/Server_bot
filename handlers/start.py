@@ -62,12 +62,12 @@ Use the menu below to change its state or refresh the status.""", reply_markup=s
 async def turn_on(callback: types.CallbackQuery):
     await asyncio.to_thread(set_power, "on")
     await callback.message.answer("Server is starting...")
+    await callback.answer()
     condition = await asyncio.to_thread(wait_for_boot, ip)
     if condition == True:
         await callback.message.answer("✅ Server has successfully booted into the OS!")
     else:
         await callback.message.answer("Something went wrong.")
-    await callback.answer()
 
 @router.callback_query(F.data == "disable")
 async def turn_off(callback: types.CallbackQuery):
