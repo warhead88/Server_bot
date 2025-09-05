@@ -4,8 +4,6 @@ from keyboard.inline import main_menu, status
 
 router = Router()
 
-status = "Here will be current status"
-
 @router.message(Command("start"))
 async def menu(message: types.Message):
     await message.answer("Basic menu", reply_markup=main_menu())
