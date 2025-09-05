@@ -60,6 +60,10 @@ Use the menu below to change its state or refresh the status.""", reply_markup=s
 
 @router.callback_query(F.data == "enable")
 async def turn_on(callback: types.CallbackQuery):
+    state = await asyncio.to_thread(get_power_status)
+    if state == "on":
+        await callback.answer("Server is already started!")
+        return
     await asyncio.to_thread(set_power, "on")
     await callback.message.answer("Server is starting...")
     await callback.answer()
@@ -71,6 +75,10 @@ async def turn_on(callback: types.CallbackQuery):
 
 @router.callback_query(F.data == "disable")
 async def turn_off(callback: types.CallbackQuery):
+    state = await asyncio.to_thread(get_power_status)
+    if state == "off":
+        await callback.answer("Server is already stopped!")
+        return
     await asyncio.to_thread(set_power, "off")
     await callback.message.answer("Server is stopping...")
     await callback.answer()
